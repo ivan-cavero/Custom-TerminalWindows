@@ -5,6 +5,8 @@ if ('S-1-5-32-544' -notin [System.Security.Principal.WindowsIdentity]::GetCurren
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
+mkdir .\tmp -Force
+
 # Import installFonts
 $ScriptRunInstallFonts= $PSScriptRoot+"\components\installFonts.ps1"
 &$ScriptRunInstallFonts
@@ -31,7 +33,8 @@ winget install -e --id Git.Git
 scoop install neovim gcc
 
 # Start wt and sleep for it starts
-wt | sleep
+wt
+sleep 5
 taskkill /f /im WindowsTerminal.exe
 
 # Import userProfile
@@ -46,7 +49,7 @@ Install-Module oh-my-posh -Scope CurrentUser -Force
 scoop install nvm
 
 # Install Terminal Icons
-Install-Module -Name TerminalIcons -Repository PSGallery -Force
+Install-Module -Name Terminal-Icons -Repository PSGallery -Force
 
 # Install Z Shell
 Install-Module -Name z -Force
@@ -57,3 +60,6 @@ Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -Skip
 # Install fzf
 scoop install fzf
 Install-Module -Name PSFzf -Scope CurrentUser -Force
+
+# Remove all tmp files
+Remove-Item -path ".\tmp" -Force -Recurse -ErrorAction SilentlyContinue
