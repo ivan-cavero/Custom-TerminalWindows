@@ -33,7 +33,7 @@ Set-Alias grep findstr
 Set-Alias node16 'nvm use 16.14.0'
 Set-Alias node17 'nvm use 17.6.0'
 Set-Alias gad 'git all .'
-Set-Alias gc 'gitmoji -c'
+Set-Alias gcc 'gitmoji -c'
 
 # Utilities
 function which ($command) {
