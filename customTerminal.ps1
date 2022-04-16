@@ -3,6 +3,8 @@ if ('S-1-5-32-544' -notin [System.Security.Principal.WindowsIdentity]::GetCurren
     throw 'Script must run as admin!'
 }
 
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
+
 # Import installFonts
 $ScriptRunInstallFonts= $PSScriptRoot+"\components\installFonts.ps1"
 &$ScriptRunInstallFonts
@@ -27,6 +29,10 @@ winget install -e --id Git.Git
 
 # Install NeoVim
 scoop install neovim gcc
+
+# Start wt and sleep for it starts
+wt | sleep
+taskkill /f /im WindowsTerminal.exe
 
 # Import userProfile
 $ScriptRunUserProfile= $PSScriptRoot+"\components\userProfile.ps1"
