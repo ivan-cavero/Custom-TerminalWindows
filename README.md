@@ -2,6 +2,9 @@
 
 Script to automate the customization of the windows terminal, with a default theme, which can be changed later.
 
+![alt text](https://i.gyazo.com/9714b2c1df75ba66ffd4ac5ee51cceea.png)
+![alt text](https://i.gyazo.com/d766bae157f1716712906ff93df9f0b5.png)
+
 ## Getting Started
 
 ### Dependencies
