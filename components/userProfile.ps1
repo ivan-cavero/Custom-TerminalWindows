@@ -1,12 +1,21 @@
 $username=( ( Get-WMIObject -class Win32_ComputerSystem | Select-Object -ExpandProperty username ) -split '\\' )[1]
-$path1 = "C:\Users\$username\.config\powershell"
+$user_profile = "C:\Users\$username\.config\powershell"
 
-mkdir -p $path1
+mkdir -p $user_profile
 
-cp -r ..\config\user_profile.ps1 $path1
+cp -r ..\config\user_profile.ps1 $user_profile
 
-cp -r ..\config\ivan.omp.json $path1
+cp -r ..\config\ivan.omp.json $user_profile
 
-$path2 = "C:\Users\$username\Documents\PowerShell"
+$powershell_profile = "C:\Users\$username\Documents\PowerShell"
 
-cp -r ..\config\Microsoft.PowerShell_profile.ps1 $path2
+cp -r ..\config\Microsoft.PowerShell_profile.ps1 $powershell_profile
+
+# Set Windows Terminal as default
+
+$configLocation = "C:\Users\$username\AppData\Local\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json"
+
+cp -r ..\config\settings.json $configLocation
+
+
+
