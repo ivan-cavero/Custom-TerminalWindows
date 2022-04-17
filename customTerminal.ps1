@@ -63,3 +63,7 @@ Install-Module -Name PSFzf -Scope CurrentUser -Force
 
 # Remove all tmp files
 Remove-Item -path ".\tmp" -Force -Recurse -ErrorAction SilentlyContinue
+
+# Finish message
+wt
+echo "Installation finished!"
