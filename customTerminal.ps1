@@ -25,12 +25,8 @@ $ScriptRunInstallFonts= $PSScriptRoot+"\components\installFonts.ps1"
 &$ScriptRunInstallFonts
 
 # Install dependencies for components (e.g. .VC++)
-$ScriptRunGetVLC= $PSScriptRoot+"\components\getVCLibs.ps1"
-&$ScriptRunGetVLC
 $ScriptRunGetVcRedist= $PSScriptRoot+"\components\getVcRedist.ps1"
 &$ScriptRunGetVcRedist
-$ScriptRunGetWinget= $PSScriptRoot+"\components\getWinget.ps1"
-&$ScriptRunGetWinget
 
 # Import getWindowsTerminal
 $ScriptRunWindowsTerminal= $PSScriptRoot+"\components\getWindowsTerminal.ps1"
@@ -48,7 +44,6 @@ iwr -useb get.scoop.sh -outfile '.\tmp\scoop.ps1'
 scoop install curl sudo jq
 
 # Install Git
-# winget install -e --id Git.Git
 choco install git -y
 
 # Install NeoVim
