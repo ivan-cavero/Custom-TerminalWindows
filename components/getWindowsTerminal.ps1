@@ -12,4 +12,4 @@ $downloadUri = $asset.browser_download_url
 $extractPath = [System.IO.Path]::Combine($extractDirectory, $asset.name)
 Invoke-WebRequest -Uri $downloadUri -OutFile $extractPath
 
-Add-AppPackage -path "./tmp/Microsoft.WindowsTerminal_Win$getWindowsEdition*.msixbundle"
+Add-AppPackage -path "./tmp/$assetPattern"
