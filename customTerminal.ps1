@@ -3,12 +3,23 @@ if ('S-1-5-32-544' -notin [System.Security.Principal.WindowsIdentity]::GetCurren
     throw 'Script must run as admin!'
 }
 
+Set-ExecutionPolicy Unrestricted
+
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
+
+Get-ChildItem -Filter *.ps1 | Unblock-File
+Get-ChildItem -Filter .\components\*.ps1 | Unblock-File
 
 mkdir .\tmp -Force
 
 # Import installFonts
 $ScriptRunInstallFonts= $PSScriptRoot+"\components\installFonts.ps1"
+&$ScriptRunInstallFonts
+
+# Install VC++ and VCLibs
+$ScriptRunInstallFonts= $PSScriptRoot+"\components\getVCLibs.ps1"
+&$ScriptRunInstallFonts
+$ScriptRunInstallFonts= $PSScriptRoot+"\components\getVcRedist.ps1"
 &$ScriptRunInstallFonts
 
 # Import getWindowsTerminal
