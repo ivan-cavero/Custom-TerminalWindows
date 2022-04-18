@@ -8,8 +8,6 @@ $ProgressPreference = 'SilentlyContinue'
 # Install Chocolatey
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-Set-ExecutionPolicy Unrestricted
-
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
 # Unlock scripts
@@ -19,7 +17,8 @@ Get-ChildItem -Filter .\components\*.ps1 | Unblock-File
 mkdir .\tmp -Force
 
 # Update NuGet packages
-Install-Module PowershellGet -Force
+Install-PackageProvider -Name NuGet -Force
+# Install-Module PowershellGet -Force
 
 # Import installFonts
 $ScriptRunInstallFonts= $PSScriptRoot+"\components\installFonts.ps1"
@@ -49,7 +48,8 @@ iwr -useb get.scoop.sh -outfile '.\tmp\scoop.ps1'
 scoop install curl sudo jq
 
 # Install Git
-winget install -e --id Git.Git
+# winget install -e --id Git.Git
+choco install git -y
 
 # Install NeoVim
 scoop install neovim gcc
