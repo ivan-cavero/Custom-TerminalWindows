@@ -7,9 +7,11 @@ cp -r .\config\user_profile.ps1 $user_profile
 
 cp -r .\config\ivan.omp.json $user_profile
 
-$powershell_profile = "C:\Users\$username\Documents\PowerShell"
+$powershell_profile = "C:\Users\$username\Documents\WindowsPowerShell"
 
-cp -r .\config\Microsoft.PowerShell_profile.ps1 $powershell_profile
+cp -r .\config\Microsoft.PowerShell_profile.ps1 $powershell_profile\Microsoft.PowerShell_profile.ps1
+
+Get-ChildItem -Filter $powershell_profile\Microsoft.PowerShell_profile.ps1 | Unblock-File
 
 # Set Windows Terminal as default
 
