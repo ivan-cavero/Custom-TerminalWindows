@@ -5,27 +5,33 @@ if ('S-1-5-32-544' -notin [System.Security.Principal.WindowsIdentity]::GetCurren
 
 $ProgressPreference = 'SilentlyContinue'
 
+# Install Chocolatey
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
 Set-ExecutionPolicy Unrestricted
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
+# Unlock scripts
 Get-ChildItem -Filter *.ps1 | Unblock-File
 Get-ChildItem -Filter .\components\*.ps1 | Unblock-File
 
 mkdir .\tmp -Force
 
 # Update NuGet packages
-Install-Package -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Install-Module PowershellGet -Force
 
 # Import installFonts
 $ScriptRunInstallFonts= $PSScriptRoot+"\components\installFonts.ps1"
 &$ScriptRunInstallFonts
 
-# Install VC++ and VCLibs
-$ScriptRunInstallFonts= $PSScriptRoot+"\components\getVCLibs.ps1"
-&$ScriptRunInstallFonts
-$ScriptRunInstallFonts= $PSScriptRoot+"\components\getVcRedist.ps1"
-&$ScriptRunInstallFonts
+# Install dependencies for components (e.g. .VC++)
+$ScriptRunGetVLC= $PSScriptRoot+"\components\getVCLibs.ps1"
+&$ScriptRunGetVLC
+$ScriptRunGetVcRedist= $PSScriptRoot+"\components\getVcRedist.ps1"
+&$ScriptRunGetVcRedist
+$ScriptRunGetWinget= $PSScriptRoot+"\components\getWinget.ps1"
+&$ScriptRunGetWinget
 
 # Import getWindowsTerminal
 $ScriptRunWindowsTerminal= $PSScriptRoot+"\components\getWindowsTerminal.ps1"
@@ -68,10 +74,10 @@ scoop install nvm
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
 
 # Install Z Shell
-Install-Module -Name z -Force
+Install-Module -Name z -Force -AllowClobber
 
 # Install PSReadLine - AutoCompletion
-Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck
 
 # Install fzf
 scoop install fzf
