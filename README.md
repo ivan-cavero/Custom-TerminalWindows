@@ -23,6 +23,7 @@ https://github.com/ivan-cavero/Custom-TerminalWindows
 ```
 Set-ExecutionPolicy Bypass
 Set-ExecutionPolicy RemoteSigned
+Set-ExecutionPolicy Unrestricted
 ```
 
 ### Executing program
